@@ -21,7 +21,14 @@ public class Práctica_Árboles {
         bst.add(1);
         bst.add(12);
         bst.add(0);
+        bst.add(2);
+        bst.add(13);
         System.out.println(bst.size());
+        System.out.println(bst.altura());
+        System.out.println(bst.nodosPorNivel(0));
+        System.out.println(bst.nodosPorNivel(1));
+        System.out.println(bst.nodosPorNivel(2));
+        System.out.println(bst.nodosPorNivel(3));
     }
     
 }
