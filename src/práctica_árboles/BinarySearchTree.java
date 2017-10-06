@@ -32,4 +32,32 @@ public class BinarySearchTree<T extends Comparable> extends Arbol {
             return n;
         }
     }
+    
+    public boolean esBST(){
+        return esBST(super.root);
+    }
+    
+    private boolean esBST(Nodo n){ // se puede hacer en menos lineas de codigo
+        if (n == null){
+            return true;
+        } else {
+            boolean izq = true;
+            boolean der = true;
+            if (n.getIzquierda() != null){
+                if (n.getIzquierda().getDato().compareTo(n.getDato()) < 0){
+                    izq = esBST(n.getIzquierda());
+                } else {
+                    izq = false;
+                }
+            }
+            if (n.getDerecha() != null){
+                if (n.getDerecha().getDato().compareTo(n.getDato()) >= 0){
+                    der = esBST(n.getDerecha());
+                } else {
+                    der = false;
+                }
+            }
+            return izq && der;
+        }
+    }
 }

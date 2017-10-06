@@ -10,7 +10,7 @@ package práctica_árboles;
  * @author luis
  * @param <T>
  */
-public class Arbol<T> {
+public class Arbol<T extends Comparable> {
 
     public Arbol() {
         root = null;

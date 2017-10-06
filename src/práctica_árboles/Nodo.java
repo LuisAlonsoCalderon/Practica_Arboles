@@ -9,7 +9,7 @@ package práctica_árboles;
  *
  * @author luis
  */
-public class Nodo <T> {
+public class Nodo <T extends Comparable> {
 
     public Nodo(Nodo derecha, Nodo izquierda, T dato) {
         this.derecha = derecha;
