@@ -5,6 +5,9 @@
  */
 package práctica_árboles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author luis
@@ -67,6 +70,31 @@ public class Arbol<T extends Comparable> {
             return 1;
         } else {
             return nodosPorNivel(n-1, act.getIzquierda()) + nodosPorNivel(n-1, act.getDerecha());
+        }
+    }
+    
+    public void nivelMasPoblado(){
+        List<T>[] lis = new List[altura()];
+        nivelMasPoblado(root, lis, 0);
+        int tamMay = 0;
+        List<T> mayor = null;
+        for(List<T> l : lis){
+            if (l.size() > tamMay){
+                mayor = l;
+                tamMay = l.size();
+            }
+        }
+        System.out.println(mayor);
+    }
+    
+    private void nivelMasPoblado(Nodo n, List<T>[] l, int nivel){
+        if (n != null){
+            if (l[nivel] == null) {
+                l[nivel] = new ArrayList<>();
+            }
+            l[nivel].add((T)n.getDato());
+            nivelMasPoblado(n.getIzquierda(), l, nivel+1);
+            nivelMasPoblado(n.getDerecha(), l, nivel+1);
         }
     }
     
