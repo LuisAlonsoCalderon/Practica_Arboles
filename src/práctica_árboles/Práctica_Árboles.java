@@ -5,7 +5,6 @@
  */
 package práctica_árboles;
 
-import java.util.ArrayList;
 
 /**
  *

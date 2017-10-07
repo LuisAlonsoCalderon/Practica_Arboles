@@ -99,7 +99,7 @@ public class Arbol<T extends Comparable> {
         }
     }
     
-    public ArrayList<T> toArray(){
+    public ArrayList<T> toArray(){ //Retorna un ArrayList en vez de un Array ya que en java no se pueden hacer arreglos con tipos de dato genéricos
         int tot = (int)Math.pow(2, altura())-1;
         ArrayList<T> arr = new ArrayList(tot); //simular arreglo genérico
         for (int i = 0 ; i < tot ; i++ ){
@@ -116,6 +116,20 @@ public class Arbol<T extends Comparable> {
             toArray(n.getIzquierda(), 2*p+1, a);
             toArray(n.getDerecha(), 2*p+2, a);
         }
+    }
+    
+    public void parseArbol(ArrayList<T> a){
+        root = parseArbol(0, a);
+    }
+    
+    private Nodo parseArbol(int p, ArrayList<T> a){
+        if (a.get(p) != null){
+            Nodo n = new Nodo(a.get(p));
+            n.setIzquierda(parseArbol(2*p + 1, a));
+            n.setDerecha(parseArbol(p*2 +2, a));
+            return n;
+        }
+        return null;
     }
     
     protected Nodo<T> root;
