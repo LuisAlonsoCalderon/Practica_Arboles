@@ -180,5 +180,26 @@ public class Arbol<T extends Comparable> {
         }
     }
     
+    public String toString() {
+        StringBuilder r = new StringBuilder("{");
+        toString(root, r);
+        r.append("}");
+        return r.toString();
+    }
+
+    private void toString(Nodo n, StringBuilder r) {
+        if (n == null){
+            r.append("null");
+        } else {
+            r.append(n.getDato().toString());
+            r.append(" {");
+            toString(n.getIzquierda(), r);
+            r.append(", ");
+            toString(n.getDerecha(), r);
+            r.append("}");
+        }
+    }
+    
+    
     protected Nodo<T> root;
 }
