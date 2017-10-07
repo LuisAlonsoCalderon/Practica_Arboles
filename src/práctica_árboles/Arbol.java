@@ -5,6 +5,7 @@
  */
 package práctica_árboles;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,6 +96,25 @@ public class Arbol<T extends Comparable> {
             l[nivel].add((T)n.getDato());
             nivelMasPoblado(n.getIzquierda(), l, nivel+1);
             nivelMasPoblado(n.getDerecha(), l, nivel+1);
+        }
+    }
+    
+    public ArrayList<T> toArray(){
+        int tot = (int)Math.pow(2, altura())-1;
+        ArrayList<T> arr = new ArrayList(tot); //simular arreglo genérico
+        for (int i = 0 ; i < tot ; i++ ){
+            arr.add(null);
+        }
+        toArray(root, 0, arr);
+        
+        return arr;
+    }
+    
+    private void toArray(Nodo n, int p, ArrayList<T> a){
+        if (n != null){
+            a.set(p ,(T)n.getDato());
+            toArray(n.getIzquierda(), 2*p+1, a);
+            toArray(n.getDerecha(), 2*p+2, a);
         }
     }
     

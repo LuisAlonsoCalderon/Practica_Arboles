@@ -5,6 +5,8 @@
  */
 package práctica_árboles;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author luis
@@ -31,6 +33,7 @@ public class Práctica_Árboles {
         System.out.println(bst.nodosPorNivel(3));
         System.out.println(bst.esBST());
         bst.nivelMasPoblado();
+        System.out.println((bst.toArray()));
     }
     
 }
