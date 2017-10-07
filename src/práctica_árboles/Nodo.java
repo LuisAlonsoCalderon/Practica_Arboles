@@ -33,6 +33,10 @@ public class Nodo <T extends Comparable> {
         return izquierda;
     }
 
+    public void setDato(T dato) {
+        this.dato = dato;
+    }
+    
     public void setDerecha(Nodo derecha) {
         this.derecha = derecha;
     }

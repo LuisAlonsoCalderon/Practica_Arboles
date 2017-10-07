@@ -33,6 +33,10 @@ public class Práctica_Árboles {
         System.out.println(bst.esBST());
         bst.nivelMasPoblado();
         System.out.println((bst.toArray()));
+        Arbol<Integer> arb = new Arbol<>();
+        arb.arrayToArbol(bst.toArray());
+        arb.remove(3);
+        System.out.println(arb.toArray());
     }
     
 }

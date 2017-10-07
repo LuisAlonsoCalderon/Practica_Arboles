@@ -5,7 +5,6 @@
  */
 package práctica_árboles;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,7 +99,7 @@ public class Arbol<T extends Comparable> {
     }
     
     public ArrayList<T> toArray(){ //Retorna un ArrayList en vez de un Array ya que en java no se pueden hacer arreglos con tipos de dato genéricos
-        int tot = (int)Math.pow(2, altura())-1;
+        int tot = (int)Math.pow(2, altura()+1)-1;
         ArrayList<T> arr = new ArrayList(tot); //simular arreglo genérico
         for (int i = 0 ; i < tot ; i++ ){
             arr.add(null);
@@ -118,18 +117,67 @@ public class Arbol<T extends Comparable> {
         }
     }
     
-    public void parseArbol(ArrayList<T> a){
-        root = parseArbol(0, a);
+    public void arrayToArbol(ArrayList<T> a){
+        root = arrayToArbol(0, a);
     }
     
-    private Nodo parseArbol(int p, ArrayList<T> a){
+    private Nodo arrayToArbol(int p, ArrayList<T> a){
         if (a.get(p) != null){
             Nodo n = new Nodo(a.get(p));
-            n.setIzquierda(parseArbol(2*p + 1, a));
-            n.setDerecha(parseArbol(p*2 +2, a));
+            n.setIzquierda(arrayToArbol(2*p + 1, a));
+            n.setDerecha(arrayToArbol(p*2 +2, a));
             return n;
         }
         return null;
+    }
+    
+    public T minimo(){
+        return minimo(root);
+    }
+    
+    protected T minimo(Nodo n){
+        if (n == null){
+            return null;
+        } else {
+            T a = minimo(n.getIzquierda());
+            T b = minimo(n.getDerecha());
+            T min = (T)n.getDato();
+            min = (a != null) ? a.compareTo(min) < 0 ? a : min : min;
+            min = (a != null) ? b.compareTo(min) < 0 ? b : min : min;
+            return min;
+        }
+    }
+    
+        
+    public void remove(T dato){
+        root = remove(dato, root);
+    }
+    
+    private Nodo remove(T dato, Nodo n){
+        if (n == null) {
+            throw new IllegalArgumentException("El elemento no existe");
+        }
+        if (n.getDato().equals(dato)){
+            if (n.getIzquierda() == null && n.getDerecha() == null){
+                return null;
+            } else if (n.getIzquierda() != null && n.getDerecha() == null){
+                return n.getIzquierda();
+            } else if (n.getIzquierda() == null && n.getDerecha() != null){
+                return n.getDerecha();
+            } else {//el caso donde hay que eliminar pero hay 2 hijos
+                T min = (T)minimo(n.getDerecha());
+                n.setDato(min);
+                n.setDerecha(remove(min, n.getDerecha()));
+                return n;
+            }
+        } else {
+            if (dato.compareTo(n.getDato()) < 0){
+                n.setIzquierda(remove(dato, n.getIzquierda()));
+            } else {
+                n.setDerecha(remove(dato, n.getDerecha()));
+            }
+            return n;
+        }
     }
     
     protected Nodo<T> root;
