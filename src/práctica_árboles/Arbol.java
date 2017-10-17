@@ -200,6 +200,31 @@ public class Arbol<T extends Comparable> {
         }
     }
     
+    public int asignarAlturas(Nodo n, int p, int[] alturas){
+        if (n == null){
+            return alturas[p] = 0;
+        } else {
+            return alturas[p] = 1 + Math.max(asignarAlturas(n.getIzquierda(), 2*p + 1, alturas),
+                    asignarAlturas(n.getDerecha(), 2*p + 2, alturas));
+        }
+    }
+    
+    public boolean balanceado(Nodo n, int p,  int [] alturas){
+        if (n == null){
+            return true;
+        } else {
+            return Math.abs(alturas[2*p+1] - alturas[2*p+2]) <= 1 
+                    && balanceado(n.getIzquierda(), 2*p+1, alturas) 
+                    && balanceado(n.getDerecha(), 2*p+2, alturas);
+        }
+    }
+    
+    public boolean balanceado(){
+        int [] alturas = new int[(int)Math.pow(2,altura()+1)-1];
+        asignarAlturas(root, 0, alturas);
+        return balanceado(root, 0, alturas);
+    }
+    
     
     protected Nodo<T> root;
 }
